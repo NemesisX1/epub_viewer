@@ -263,11 +263,8 @@
     }
 
     function toProgress(progress) {
-      book.locations.generate(1600);
-      console.log(book.locations);
       var cfi = book.locations.cfiFromPercentage(progress);
 
-      console.log('toProgress:\nprogress: ' + progress + '\ncfi: ' + cfi);
       rendition.display(cfi);
     }
 

@@ -19,7 +19,7 @@ class EpubController {
   display({
     ///Cfi String of the desired location, also accepts chapter href
     required String cfi,
-  }) {
+  }) async {
     checkEpubLoaded();
     webViewController?.evaluateJavascript(source: 'toCfi("$cfi")');
   }
@@ -188,6 +188,17 @@ class EpubController {
     checkEpubLoaded();
     webViewController?.evaluateJavascript(
         source: 'toProgress($progressPercent)');
+  }
+
+  Future<String> cfiFromProgressPercentage(double progressPercent) async {
+    assert(progressPercent >= 0.0 && progressPercent <= 1.0,
+        'Progress percentage must be between 0.0 and 1.0');
+    checkEpubLoaded();
+
+    final res = await webViewController?.evaluateJavascript(
+        source: 'cfiFromProgress($progressPercent)');
+
+    return res;
   }
 
   checkEpubLoaded() {
